@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer'
 import Home from './pages/Home/Home'
 import NotFound from './pages/NotFound/NotFound'
 import SignIn from './pages/SignIn/SignIn'
+import User from './pages/User/User'
 // Css
 import './App.css'
 
@@ -16,6 +17,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/sign-in/" element={<SignIn />} />
+                <Route path="/user/" element={<User />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
