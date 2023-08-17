@@ -1,10 +1,12 @@
-// Importation de la fonction `createSlice` de Redux Toolkit
 import { createSlice } from '@reduxjs/toolkit'
 
 // Définition de l'état initial pour le slice utilisateur
 const initialState = {
-    firstName: 'Prénom',
-    lastName: 'Nom',
+    firstName: '',
+    lastName: '',
+    token: null, // pour stocker le JWT
+    isLoading: false,
+    error: null,
 }
 
 // Création du slice pour gérer les informations de l'utilisateur
@@ -17,11 +19,25 @@ const userSlice = createSlice({
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName
         },
+        authStart: (state) => {
+            state.isLoading = true
+            state.error = null
+        },
+
+        authSuccess: (state, action) => {
+            state.isLoading = false
+            state.token = action.payload.token
+        },
+
+        authFailure: (state, action) => {
+            state.isLoading = false
+            state.error = action.payload.error
+        },
     },
 })
 
 // Exportation des actions générées pour ce slice
-export const { setUser } = userSlice.actions
+export const { setUser, authStart, authSuccess, authFailure } =
+    userSlice.actions
 
-// Exportation du reducer pour ce slice, qui sera utilisé pour mettre à jour l'état
 export default userSlice.reducer
