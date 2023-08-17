@@ -24,7 +24,7 @@ function Header() {
                         {' ' + firstName}
                     </span>
                 ) : (
-                    <a className="main-nav-item" href="/sign-in/">
+                    <a className="main-nav-item" href="/login/">
                         <FontAwesomeIcon icon={faUserCircle} />
                         Sign In
                     </a>
