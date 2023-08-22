@@ -4,7 +4,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     firstName: '',
     lastName: '',
-    token: null, // pour stocker le JWT
+    // initialisation à partir du localStorage
+    token: localStorage.getItem('token') || null, // pour stocker le JWT
     isLoading: false,
     error: null,
 }
@@ -27,6 +28,8 @@ const userSlice = createSlice({
         authSuccess: (state, action) => {
             state.isLoading = false
             state.token = action.payload.token
+            // Stocker le token dans le localStorage
+            localStorage.setItem('token', action.payload.token)
         },
 
         authFailure: (state, action) => {

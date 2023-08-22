@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { authStart, authSuccess, authFailure } from '../../reducers/userSlice'
 import './SignIn.css'
@@ -8,6 +9,7 @@ function SignIn() {
     const [password, setPassword] = useState('')
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleLogin = async (event) => {
         event.preventDefault()
@@ -19,6 +21,9 @@ function SignIn() {
                 'http://localhost:3001/api/v1/user/login',
                 {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify({ email, password }),
                 }
             )
@@ -32,6 +37,8 @@ function SignIn() {
             }
             console.log(data)
             dispatch(authSuccess({ token: data.token }))
+            // Redirection vers /profile/
+            navigate('/profile')
         } catch (error) {
             dispatch(authFailure({ error: error.message }))
         }

@@ -1,13 +1,16 @@
+import { useSelector } from 'react-redux'
 import './User.css'
 
 function User() {
+    const user = useSelector((state) => state.user)
+
     return (
         <main className="main bg-dark">
             <div className="header">
                 <h1>
                     Welcome back
                     <br />
-                    Tony Jarvis!
+                    {user.firstName} {user.lastName}!
                 </h1>
                 <button className="edit-button">Edit Name</button>
             </div>
