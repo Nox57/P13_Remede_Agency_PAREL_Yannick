@@ -5,8 +5,8 @@ import Footer from './components/Footer/Footer'
 // Pages
 import Home from './pages/Home/Home'
 import NotFound from './pages/NotFound/NotFound'
-import SignIn from './pages/SignIn/SignIn'
-import User from './pages/User/User'
+import Login from './pages/Login/Login'
+import Profile from './pages/Profile/Profile'
 // Css
 import './App.css'
 
@@ -16,8 +16,8 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/login/" element={<SignIn />} />
-                <Route path="/profile/" element={<User />} />
+                <Route path="/login/" element={<Login />} />
+                <Route path="/profile/" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />

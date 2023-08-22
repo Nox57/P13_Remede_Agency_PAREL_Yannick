@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../../reducers/userSlice'
-import './SignIn.css'
+import './Login.css'
 
-function SignIn() {
+function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -62,4 +62,4 @@ function SignIn() {
     )
 }
 
-export default SignIn
+export default Login

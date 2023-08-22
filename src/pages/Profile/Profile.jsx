@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
-import './User.css'
+import './Profile.css'
 
-function User() {
+function Profile() {
     const user = useSelector((state) => state.user)
 
     return (
@@ -67,4 +67,4 @@ function User() {
     )
 }
 
-export default User
+export default Profile
