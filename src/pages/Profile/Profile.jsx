@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
+import { updateUserProfile } from '../../reducers/userSlice'
 import './Profile.css'
 
 function Profile() {
@@ -9,14 +10,9 @@ function Profile() {
     const [lastName, setLastName] = useState(user.lastName)
     const dispatch = useDispatch()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-
-        // Mise à jour du store Redux
-        dispatch({
-            type: 'user/setUser',
-            payload: { firstName, lastName },
-        })
+        dispatch(updateUserProfile({ firstName, lastName }))
         setEditing(false)
     }
 

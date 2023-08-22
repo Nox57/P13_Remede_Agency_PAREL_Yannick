@@ -62,6 +62,38 @@ export const fetchUserProfile = createAsyncThunk(
     }
 )
 
+export const updateUserProfile = createAsyncThunk(
+    'user/updateProfile',
+    async (userUpdate, { getState }) => {
+        const token = getState().user.token
+
+        const response = await fetch(
+            'http://localhost:3001/api/v1/user/profile',
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(userUpdate),
+            }
+        )
+
+        const data = await response.json()
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || 'Erreur lors de la mise à jour du profil'
+            )
+        }
+
+        return {
+            firstName: data.body.firstName,
+            lastName: data.body.lastName,
+        }
+    }
+)
+
 // Création du slice pour gérer les informations de l'utilisateur
 const userSlice = createSlice({
     name: 'user',
@@ -102,6 +134,10 @@ const userSlice = createSlice({
                 state.error = action.error.message
             })
             .addCase(fetchUserProfile.fulfilled, (state, action) => {
+                state.firstName = action.payload.firstName
+                state.lastName = action.payload.lastName
+            })
+            .addCase(updateUserProfile.fulfilled, (state, action) => {
                 state.firstName = action.payload.firstName
                 state.lastName = action.payload.lastName
             })
