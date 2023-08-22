@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { authStart, authSuccess, authFailure } from '../../reducers/userSlice'
+import { loginUser } from '../../reducers/userSlice'
 import './SignIn.css'
 
 function SignIn() {
@@ -11,37 +11,16 @@ function SignIn() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const handleLogin = async (event) => {
+    const handleLogin = (event) => {
         event.preventDefault()
-
-        dispatch(authStart())
-
-        try {
-            const response = await fetch(
-                'http://localhost:3001/api/v1/user/login',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password }),
-                }
-            )
-
-            const data = await response.json()
-
-            if (!response.ok) {
-                throw new Error(
-                    data.error || "Erreur lors de l'authentification"
-                )
-            }
-            console.log(data)
-            dispatch(authSuccess({ token: data.token }))
-            // Redirection vers /profile/
-            navigate('/profile')
-        } catch (error) {
-            dispatch(authFailure({ error: error.message }))
-        }
+        dispatch(loginUser({ email, password }))
+            .unwrap()
+            .then(() => {
+                navigate('/profile')
+            })
+            .catch((error) => {
+                console.error(error)
+            })
     }
 
     return (
@@ -51,11 +30,12 @@ function SignIn() {
                 <h1>Sign In</h1>
                 <form onSubmit={handleLogin}>
                     <div className="input-wrapper">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="email">Username</label>
                         <input
                             type="email"
                             id="email"
                             value={email}
+                            autoComplete="username"
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
@@ -65,6 +45,7 @@ function SignIn() {
                             type="password"
                             id="password"
                             value={password}
+                            autoComplete="current-password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
