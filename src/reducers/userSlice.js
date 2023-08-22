@@ -30,6 +30,38 @@ export const loginUser = createAsyncThunk('user/login', async (credentials) => {
     return { token: data.body.token }
 })
 
+// Fonction asynchrone pour récuperer le nom et le prénom de l'utilisateur
+export const fetchUserProfile = createAsyncThunk(
+    'user/profile',
+    async (_, { getState }) => {
+        const token = getState().user.token
+
+        const response = await fetch(
+            'http://localhost:3001/api/v1/user/profile',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
+
+        const data = await response.json()
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || 'Erreur lors de la récupération du profil'
+            )
+        }
+
+        return {
+            firstName: data.body.firstName,
+            lastName: data.body.lastName,
+        }
+    }
+)
+
 // Création du slice pour gérer les informations de l'utilisateur
 const userSlice = createSlice({
     name: 'user',
@@ -68,6 +100,10 @@ const userSlice = createSlice({
             .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false
                 state.error = action.error.message
+            })
+            .addCase(fetchUserProfile.fulfilled, (state, action) => {
+                state.firstName = action.payload.firstName
+                state.lastName = action.payload.lastName
             })
     },
 })

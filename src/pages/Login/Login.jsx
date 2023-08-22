@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { loginUser } from '../../reducers/userSlice'
+import { loginUser, fetchUserProfile } from '../../reducers/userSlice'
 import './Login.css'
 
 function Login() {
@@ -15,6 +15,10 @@ function Login() {
         event.preventDefault()
         dispatch(loginUser({ email, password }))
             .unwrap()
+            .then(() => {
+                // Après avoir obtenu le token JWT, on recupère les informations du profil
+                return dispatch(fetchUserProfile())
+            })
             .then(() => {
                 navigate('/profile')
             })
