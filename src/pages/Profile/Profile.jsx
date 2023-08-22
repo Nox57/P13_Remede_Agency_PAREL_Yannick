@@ -1,18 +1,76 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react'
 import './Profile.css'
 
 function Profile() {
     const user = useSelector((state) => state.user)
+    const [editing, setEditing] = useState(false)
+    const [firstName, setFirstName] = useState(user.firstName)
+    const [lastName, setLastName] = useState(user.lastName)
+    const dispatch = useDispatch()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        // Mise à jour du store Redux
+        dispatch({
+            type: 'user/setUser',
+            payload: { firstName, lastName },
+        })
+        setEditing(false)
+    }
 
     return (
         <main className="main bg-dark">
             <div className="header">
-                <h1>
-                    Welcome back
-                    <br />
-                    {user.firstName} {user.lastName}!
-                </h1>
-                <button className="edit-button">Edit Name</button>
+                {editing ? (
+                    <>
+                        <h1>Welcome back</h1>
+                        <form onSubmit={handleSubmit}>
+                            <div className="input-wrapper">
+                                <input
+                                    value={firstName}
+                                    onChange={(e) =>
+                                        setFirstName(e.target.value)
+                                    }
+                                    placeholder="Prénom"
+                                />
+                            </div>
+                            <div className="input-wrapper">
+                                <input
+                                    value={lastName}
+                                    onChange={(e) =>
+                                        setLastName(e.target.value)
+                                    }
+                                    placeholder="Nom"
+                                />
+                            </div>
+                            <button type="submit" className="edit-button">
+                                Save
+                            </button>
+                            <button
+                                className="edit-button"
+                                onClick={() => setEditing(false)}
+                            >
+                                Cancel
+                            </button>
+                        </form>
+                    </>
+                ) : (
+                    <>
+                        <h1>
+                            Welcome back
+                            <br />
+                            {user.firstName} {user.lastName}!
+                        </h1>
+                        <button
+                            className="edit-button"
+                            onClick={() => setEditing(true)}
+                        >
+                            Edit Name
+                        </button>
+                    </>
+                )}
             </div>
             <h2 className="sr-only">Accounts</h2>
             <section className="account">
