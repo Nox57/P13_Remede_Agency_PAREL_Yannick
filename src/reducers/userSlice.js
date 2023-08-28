@@ -118,6 +118,12 @@ const userSlice = createSlice({
             state.isLoading = false
             state.error = action.payload.error
         },
+        logout: (state) => {
+            state.firstName = ''
+            state.lastName = ''
+            state.token = null
+            localStorage.removeItem('token')
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -145,7 +151,7 @@ const userSlice = createSlice({
 })
 
 // Exportation des actions générées pour ce slice
-export const { setUser, authStart, authSuccess, authFailure } =
+export const { setUser, authStart, authSuccess, authFailure, logout } =
     userSlice.actions
 
 export default userSlice.reducer
