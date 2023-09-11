@@ -116,7 +116,7 @@ paths:
                 '500':
                     description: Internal Server Error
 
-    /transactions/:
+    /transactions:
         get:
             tags:
                 - Module des Transactions
@@ -132,6 +132,20 @@ paths:
             responses:
                 '200':
                     description: Transactions récupérées avec succès
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Transaction'
+                    examples:
+                        application/json:
+                            - date: "2023-09-01"
+                              montant: 150.00
+                              category: "Restauration"
+                              note: "Restaurant anniversaire Papa"
+                            - date: "2023-09-02"
+                              montant: 75.00
+                              category: "Energie"                              
+                              note: "Facture de gaz"
                 '401':
                     description: Non autorisé
                 '403':
@@ -160,6 +174,14 @@ paths:
             responses:
                 '200':
                     description: Détails de la transaction récupérés avec succès
+                    schema:
+                        $ref: '#/definitions/Transaction'
+                    examples:
+                        application/json:
+                            date: "2023-09-03"
+                            montant: 45.00
+                            category: "Transport"
+                            note: "Ticket de train pour Paris"
                 '401':
                     description: Non autorisé
                 '403':
@@ -191,7 +213,13 @@ paths:
                   description: Informations modifiées de la transaction
                   required: true
                   schema:
-                      $ref: '#/definitions/Transaction'
+                      properties:
+                          category:
+                              type: string
+                              description: Catégorie de la transaction
+                          note:
+                              type: string
+                              description: Note pour la transaction
             responses:
                 '200':
                     description: Transaction modifiée avec succès
@@ -259,6 +287,14 @@ definitions:
 
     Transaction:
         properties:
+            date:
+                type: string
+                format: date
+                description: Date de la transaction
+            montant:
+                type: number
+                format: float
+                description: Montant de la transaction
             category:
                 type: string
                 description: Catégorie de la transaction
