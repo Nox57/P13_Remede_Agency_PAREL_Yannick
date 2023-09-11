@@ -132,8 +132,10 @@ paths:
             responses:
                 '200':
                     description: Transactions récupérées avec succès
-                '400':
-                    description: Paramètres invalides
+                '401':
+                    description: Non autorisé
+                '403':
+                    description: Accès interdit
                 '500':
                     description: Erreur interne du serveur
 
@@ -158,8 +160,14 @@ paths:
             responses:
                 '200':
                     description: Détails de la transaction récupérés avec succès
+                '401':
+                    description: Non autorisé
+                '403':
+                    description: Accès interdit
                 '404':
                     description: Transaction non trouvée
+                '422':
+                    description: Entité non traitable
                 '500':
                     description: Erreur interne du serveur
 
@@ -189,8 +197,14 @@ paths:
                     description: Transaction modifiée avec succès
                 '400':
                     description: Paramètres invalides
+                '401':
+                    description: Non autorisé
+                '403':
+                    description: Accès interdit
                 '404':
                     description: Transaction non trouvée
+                '422':
+                    description: Entité non traitable
                 '500':
                     description: Erreur interne du serveur
 
