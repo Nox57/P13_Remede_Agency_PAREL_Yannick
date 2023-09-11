@@ -119,8 +119,8 @@ paths:
     /transactions:
         get:
             tags:
-                - Module des Transactions
-            summary: Récupérer toutes les transactions pour le mois en cours
+                - Transactions Module
+            summary: Retrieve all transactions for the current month
             parameters:
                 - in: header
                   name: Authorization
@@ -131,7 +131,7 @@ paths:
                 - application/json
             responses:
                 '200':
-                    description: Transactions récupérées avec succès
+                    description: Transactions retrieved successfully
                     schema:
                         type: array
                         items:
@@ -147,17 +147,17 @@ paths:
                               category: "Energie"                              
                               note: "Facture de gaz"
                 '401':
-                    description: Non autorisé
+                    description: Unauthorized
                 '403':
-                    description: Accès interdit
+                    description: Forbidden
                 '500':
-                    description: Erreur interne du serveur
+                    description: Internal Server Error
 
     /transactions/{transactionId}:
         get:
             tags:
-                - Module des Transactions
-            summary: Détails d'une transaction
+                - Transactions Module
+            summary: Transaction details
             parameters:
                 - in: header
                   name: Authorization
@@ -173,7 +173,7 @@ paths:
                 - application/json
             responses:
                 '200':
-                    description: Détails de la transaction récupérés avec succès
+                    description: Transaction details retrieved successfully
                     schema:
                         $ref: '#/definitions/Transaction'
                     examples:
@@ -183,20 +183,20 @@ paths:
                             category: "Transport"
                             note: "Ticket de train pour Paris"
                 '401':
-                    description: Non autorisé
+                    description: Unauthorized
                 '403':
-                    description: Accès interdit
+                    description: Forbidden
                 '404':
-                    description: Transaction non trouvée
+                    description: Transaction not found
                 '422':
-                    description: Entité non traitable
+                    description: Unprocessable Entity
                 '500':
-                    description: Erreur interne du serveur
+                    description: Internal Server Error
 
         put:
             tags:
-                - Module des Transactions
-            summary: Modifier les détails d'une transaction
+                - Transactions Module
+            summary: Modify transaction details
             parameters:
                 - in: header
                   name: Authorization
@@ -207,34 +207,34 @@ paths:
                   name: transactionId
                   type: integer
                   required: true
-                  description: ID de la transaction à modifier
+                  description: ID of the transaction to edit
                 - in: body
                   name: transaction
-                  description: Informations modifiées de la transaction
+                  description: Updated transaction information
                   required: true
                   schema:
                       properties:
                           category:
                               type: string
-                              description: Catégorie de la transaction
+                              description: Transaction category
                           note:
                               type: string
-                              description: Note pour la transaction
+                              description: Note for the transaction
             responses:
                 '200':
-                    description: Transaction modifiée avec succès
+                    description: Transaction edited successfully
                 '400':
-                    description: Paramètres invalides
+                    description: Invalid Parameters
                 '401':
-                    description: Non autorisé
+                    description: Unauthorized
                 '403':
-                    description: Accès interdit
+                    description: Forbidden
                 '404':
-                    description: Transaction non trouvée
+                    description: Transaction not found
                 '422':
-                    description: Entité non traitable
+                    description: Unprocessable Entity
                 '500':
-                    description: Erreur interne du serveur
+                    description: Internal Server Error
 
 securityDefinitions:
     Bearer:
@@ -290,17 +290,17 @@ definitions:
             date:
                 type: string
                 format: date
-                description: Date de la transaction
+                description: Transaction date
             montant:
                 type: number
                 format: float
-                description: Montant de la transaction
+                description: Transaction amount
             category:
                 type: string
-                description: Catégorie de la transaction
+                description: Transaction category
             note:
                 type: string
-                description: Note pour la transaction
+                description: Note for the transaction
 
     ApiResponse:
         properties:
