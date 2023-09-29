@@ -138,18 +138,18 @@ paths:
                             $ref: '#/definitions/Transaction'
                     examples:
                         application/json:
-                            - date: "2023-09-01"
-                              montant: 150.00
+                            - id: 1
+                              date: "2023-09-01"
+                              amount: 150.00
                               category: "Restauration"
                               note: "Restaurant anniversaire Papa"
-                            - date: "2023-09-02"
-                              montant: 75.00
+                            - id: 2
+                              date: "2023-09-02"
+                              amount: 75.00
                               category: "Energie"                              
                               note: "Facture de gaz"
                 '401':
                     description: Unauthorized
-                '403':
-                    description: Forbidden
                 '500':
                     description: Internal Server Error
 
@@ -168,7 +168,7 @@ paths:
                   name: transactionId
                   type: integer
                   required: true
-                  description: ID de la transaction
+                  description: Transaction ID
             produces:
                 - application/json
             responses:
@@ -178,8 +178,9 @@ paths:
                         $ref: '#/definitions/Transaction'
                     examples:
                         application/json:
+                            id: 3
                             date: "2023-09-03"
-                            montant: 45.00
+                            amount: 45.00
                             category: "Transport"
                             note: "Ticket de train pour Paris"
                 '401':
@@ -188,8 +189,6 @@ paths:
                     description: Forbidden
                 '404':
                     description: Transaction not found
-                '422':
-                    description: Unprocessable Entity
                 '500':
                     description: Internal Server Error
 
@@ -221,7 +220,7 @@ paths:
                               type: string
                               description: Note for the transaction
             responses:
-                '200':
+                '204':
                     description: Transaction edited successfully
                 '400':
                     description: Invalid Parameters
@@ -287,11 +286,14 @@ definitions:
 
     Transaction:
         properties:
+            id:
+                type: integer
+                description: Transaction ID
             date:
                 type: string
                 format: date
                 description: Transaction date
-            montant:
+            amount:
                 type: number
                 format: float
                 description: Transaction amount
