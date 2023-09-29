@@ -27,34 +27,46 @@ function Profile() {
                 {editing ? (
                     <>
                         <h1>Welcome back</h1>
-                        <form onSubmit={handleSubmit}>
-                            <div className="input-wrapper">
-                                <input
-                                    value={firstName}
-                                    onChange={(e) =>
-                                        setFirstName(e.target.value)
-                                    }
-                                    placeholder="Prénom"
-                                />
+                        <form
+                            onSubmit={handleSubmit}
+                            className="form-container"
+                        >
+                            <div className="input-group">
+                                <div className="field-group">
+                                    <input
+                                        id="firstName"
+                                        value={firstName}
+                                        onChange={(e) =>
+                                            setFirstName(e.target.value)
+                                        }
+                                        placeholder="Prénom"
+                                    />
+                                </div>
+                                <div className="field-group">
+                                    <input
+                                        id="lastName"
+                                        value={lastName}
+                                        onChange={(e) =>
+                                            setLastName(e.target.value)
+                                        }
+                                        placeholder="Nom"
+                                    />
+                                </div>
                             </div>
-                            <div className="input-wrapper">
-                                <input
-                                    value={lastName}
-                                    onChange={(e) =>
-                                        setLastName(e.target.value)
-                                    }
-                                    placeholder="Nom"
-                                />
+                            <div className="button-group">
+                                <button
+                                    type="submit"
+                                    className="edit-button save-button"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    className="edit-button cancel-button"
+                                    onClick={() => setEditing(false)}
+                                >
+                                    Cancel
+                                </button>
                             </div>
-                            <button type="submit" className="edit-button">
-                                Save
-                            </button>
-                            <button
-                                className="edit-button"
-                                onClick={() => setEditing(false)}
-                            >
-                                Cancel
-                            </button>
                         </form>
                     </>
                 ) : (
