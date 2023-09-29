@@ -9,8 +9,12 @@ import Login from './pages/Login/Login'
 import Profile from './pages/Profile/Profile'
 // Css
 import './App.css'
+// Hooks
+import useUserProfile from './hooks/useUserProfile'
 
 function App() {
+    useUserProfile()
+
     return (
         <Router>
             <Header />

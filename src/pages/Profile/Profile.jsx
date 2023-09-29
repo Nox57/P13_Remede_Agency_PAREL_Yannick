@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { updateUserProfile } from '../../reducers/userSlice'
 import './Profile.css'
 
@@ -9,6 +9,11 @@ function Profile() {
     const [firstName, setFirstName] = useState(user.firstName)
     const [lastName, setLastName] = useState(user.lastName)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        setFirstName(user.firstName)
+        setLastName(user.lastName)
+    }, [user.firstName, user.lastName])
 
     const handleSubmit = async (e) => {
         e.preventDefault()

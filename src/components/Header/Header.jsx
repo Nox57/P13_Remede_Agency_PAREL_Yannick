@@ -1,22 +1,15 @@
-import { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import './Header.css'
 import Logo from '../../assets/argentBankLogo.png'
-import { logout, fetchUserProfile } from '../../reducers/userSlice'
+import { logout } from '../../reducers/userSlice'
 
 function Header() {
-    const { firstName, token } = useSelector((state) => state.user)
+    const { firstName } = useSelector((state) => state.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
-    useEffect(() => {
-        if (token) {
-            dispatch(fetchUserProfile())
-        }
-    }, [token, dispatch])
 
     const handleLogout = (event) => {
         event.preventDefault()
