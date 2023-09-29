@@ -1,6 +1,7 @@
 .main {
     flex: 1;
     flex-direction: column;
+    padding-bottom: 3rem;
 }
 
 .bg-dark {
@@ -94,5 +95,11 @@
 
     .transaction-button {
         width: 200px;
+    }
+}
+
+@media (max-width: 719px) {
+    .header {
+        margin-top: 60px;
     }
 }

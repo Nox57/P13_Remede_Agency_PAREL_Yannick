@@ -18,39 +18,41 @@ function Header() {
     }
 
     return (
-        <nav className="main-nav">
-            <a className="main-nav-logo" href="/">
-                <img
-                    className="main-nav-logo-image"
-                    src={Logo}
-                    alt="Argent Bank Logo"
-                />
-                <h1 className="sr-only">Argent Bank</h1>
-            </a>
-            <div className="main-nav-items">
-                {firstName ? (
-                    <>
-                        <span className="main-nav-item user-name-span">
+        <header>
+            <nav className="main-nav">
+                <a className="main-nav-logo" href="/">
+                    <img
+                        className="main-nav-logo-image"
+                        src={Logo}
+                        alt="Argent Bank Logo"
+                    />
+                    <h1 className="sr-only">Argent Bank</h1>
+                </a>
+                <div className="main-nav-items">
+                    {firstName ? (
+                        <>
+                            <span className="main-nav-item user-name-span">
+                                <FontAwesomeIcon icon={faUserCircle} />
+                                {' ' + firstName}
+                            </span>
+                            <a
+                                href="/"
+                                className="main-nav-item"
+                                onClick={handleLogout}
+                            >
+                                <FontAwesomeIcon icon={faSignOutAlt} />
+                                Sign Out
+                            </a>
+                        </>
+                    ) : (
+                        <a className="main-nav-item" href="/login">
                             <FontAwesomeIcon icon={faUserCircle} />
-                            {' ' + firstName}
-                        </span>
-                        <a
-                            href="/"
-                            className="main-nav-item"
-                            onClick={handleLogout}
-                        >
-                            <FontAwesomeIcon icon={faSignOutAlt} />
-                            Sign Out
+                            Sign In
                         </a>
-                    </>
-                ) : (
-                    <a className="main-nav-item" href="/login">
-                        <FontAwesomeIcon icon={faUserCircle} />
-                        Sign In
-                    </a>
-                )}
-            </div>
-        </nav>
+                    )}
+                </div>
+            </nav>
+        </header>
     )
 }
 
