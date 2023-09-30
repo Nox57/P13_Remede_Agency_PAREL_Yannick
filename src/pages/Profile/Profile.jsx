@@ -1,10 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { updateUserProfile } from '../../reducers/userSlice'
 import './Profile.css'
 
 function Profile() {
     const user = useSelector((state) => state.user)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!user.token) {
+            navigate('/')
+        }
+    }, [user.token, navigate])
+
     const [editing, setEditing] = useState(false)
     const [firstName, setFirstName] = useState(user.firstName)
     const [lastName, setLastName] = useState(user.lastName)
