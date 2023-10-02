@@ -33,7 +33,7 @@ export const loginUser = createAsyncThunk('user/login', async (credentials) => {
 // Fonction asynchrone pour récuperer le nom et le prénom de l'utilisateur
 export const fetchUserProfile = createAsyncThunk(
     'user/profile',
-    async (_, { getState }) => {
+    async (_, { getState, dispatch }) => {
         const token = getState().user.token
 
         const response = await fetch(
@@ -50,6 +50,7 @@ export const fetchUserProfile = createAsyncThunk(
         const data = await response.json()
 
         if (!response.ok) {
+            dispatch(logout())
             throw new Error(
                 data.message || 'Erreur lors de la récupération du profil'
             )
@@ -142,6 +143,10 @@ const userSlice = createSlice({
             .addCase(fetchUserProfile.fulfilled, (state, action) => {
                 state.firstName = action.payload.firstName
                 state.lastName = action.payload.lastName
+            })
+            .addCase(fetchUserProfile.rejected, (state, action) => {
+                state.isLoading = false
+                state.error = action.error.message
             })
             .addCase(updateUserProfile.fulfilled, (state, action) => {
                 state.firstName = action.payload.firstName
